@@ -1,0 +1,524 @@
+:root {
+  --bg-color: #0b1020;
+  --text-color: #f4f4f8;
+  --accent: #d4af37;
+  --accent-soft: rgba(212, 175, 55, 0.4);
+  --overlay: rgba(10, 15, 30, 0.7);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  background: radial-gradient(circle at top, #1b2244 0, #0b1020 45%, #050816 100%);
+  color: var(--text-color);
+  min-height: 100vh;
+  overflow-x: hidden;
+  position: relative;
+}
+
+/* Background dekoratif (motif islami statis) */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background-image: 
+    radial-gradient(circle at 20% 20%, rgba(212, 175, 55, 0.15) 0, transparent 55%),
+    radial-gradient(circle at 80% 80%, rgba(212, 175, 55, 0.12) 0, transparent 55%),
+    repeating-linear-gradient(
+      45deg,
+      transparent,
+      transparent 2px,
+      rgba(255, 255, 255, 0.02) 2px,
+      rgba(255, 255, 255, 0.02) 4px
+    );
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Konten utama */
+.page {
+  position: relative;
+  z-index: 1;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+  text-align: center;
+}
+
+/* Bulan sabit & bintang */
+.moon-wrapper {
+  position: relative;
+  width: 150px;
+  height: 150px;
+  margin: 0 auto 2rem;
+}
+
+.moon {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 30% 30%, #f7f0c4, #dcc87a 40%, #c6a347 80%);
+  box-shadow:
+    0 0 60px rgba(212, 175, 55, 0.8),
+    0 0 120px rgba(212, 175, 55, 0.5);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Bulan sabit: tiruan dari teknik overlay circle */
+.moon::after {
+  content: "";
+  position: absolute;
+  top: 15px;
+  right: -20px;
+  width: 130px;
+  height: 130px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 30% 30%, #0b1020, #050816 70%);
+}
+
+.star {
+  position: absolute;
+  top: 50%;
+  left: 60%;
+  width: 14px;
+  height: 14px;
+  background: var(--accent);
+  clip-path: polygon(
+    50% 0%,
+    61% 35%,
+    98% 35%,
+    68% 57%,
+    79% 91%,
+    50% 70%,
+    21% 91%,
+    32% 57%,
+    2% 35%,
+    39% 35%
+  );
+  animation: twinkle 3s ease-in-out infinite;
+  opacity: 0.9;
+}
+
+@keyframes twinkle {
+  0%, 100% { opacity: 0.6; transform: scale(0.9); }
+  50% { opacity: 1; transform: scale(1.1); }
+}
+
+/* Judul utama */
+.title {
+  font-size: clamp(2.2rem, 4vw, 3.2rem);
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  margin-bottom: 1rem;
+  color: #fff;
+  text-transform: uppercase;
+  text-shadow: 0 0 20px rgba(212, 175, 55, 0.6);
+  position: relative;
+}
+
+.title span {
+  color: var(--accent);
+}
+
+/* Subtitle */
+.subtitle {
+  font-size: clamp(1rem, 2.2vw, 1.3rem);
+  font-weight: 400;
+  margin-bottom: 2rem;
+  color: #e8e8f0;
+  max-width: 640px;
+}
+
+/* Ucapan utama */
+.greeting {
+  font-size: clamp(1.2rem, 2.5vw, 1.5rem);
+  font-weight: 600;
+  margin-bottom: 2rem;
+  line-height: 1.6;
+}
+
+.greeting strong {
+  color: var(--accent);
+  font-weight: 700;
+}
+
+/* Box info kecil */
+.info-box {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.02));
+  border-radius: 20px;
+  padding: 1.2rem 1.8rem;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(12px);
+  max-width: 520px;
+  margin: 0 auto 2rem;
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+
+.info-box-image {
+  width: 100%;
+  max-width: 280px;
+  margin: 0 auto 1.2rem;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 
+    0 10px 30px rgba(248, 180, 196, 0.25),
+    0 5px 15px rgba(0, 0, 0, 0.2);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.info-box-image:hover {
+  transform: scale(1.02);
+  box-shadow: 
+    0 15px 40px rgba(248, 180, 196, 0.35),
+    0 8px 20px rgba(0, 0, 0, 0.25);
+}
+
+.info-box-image img {
+  width: 100%;
+  height: auto;
+  display: block;
+  transition: transform 0.3s ease;
+}
+
+.info-box-image:hover img {
+  transform: scale(1.05);
+}
+
+.info-box h2 {
+  font-size: 1.1rem;
+  margin-bottom: 0.5rem;
+  color: #f4f4f8;
+  font-weight: 700;
+}
+
+.info-box p {
+  color: #d7d7de;
+}
+
+/* Tombol aksi */
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  justify-content: center;
+  margin-bottom: 2.5rem;
+}
+
+.btn {
+  padding: 0.75rem 1.8rem;
+  border-radius: 999px;
+  border: none;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, #d4af37, #c89b3b);
+  color: #0b1020;
+  box-shadow: 0 10px 25px rgba(212, 175, 55, 0.5);
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 14px 30px rgba(212, 175, 55, 0.7);
+}
+
+.btn-secondary {
+  background: rgba(255, 255, 255, 0.08);
+  color: #f4f4f8;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.btn-secondary:hover {
+  background: rgba(255, 255, 255, 0.16);
+}
+
+/* Countdown / info tanggal */
+.meta {
+  font-size: 0.85rem;
+  color: #aaa;
+  margin-top: 1rem;
+}
+
+.meta span {
+  color: #ddd;
+  font-weight: 600;
+}
+
+/* Animasi partikel bintang */
+.particles {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.particle {
+  position: absolute;
+  background: #fff;
+  border-radius: 50%;
+  opacity: 0;
+  animation: floatUp 10s linear infinite;
+}
+
+@keyframes floatUp {
+  0% {
+    opacity: 0;
+    transform: translateY(0) translateX(0) scale(0.5);
+  }
+  20% {
+    opacity: 0.6;
+  }
+  90% {
+    opacity: 0.2;
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-100vh) translateX(20px) scale(1);
+  }
+}
+
+/* Section konten tambahan */
+.section {
+  width: 100%;
+  max-width: 960px;
+  margin: 0 auto 3rem;
+  padding: 0 1.5rem;
+}
+
+.section-title {
+  font-size: 1.3rem;
+  margin-bottom: 1rem;
+  color: #f4f4f8;
+  position: relative;
+  padding-left: 1rem;
+}
+
+.section-title::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 6px;
+  width: 4px;
+  height: 70%;
+  border-radius: 999px;
+  background: linear-gradient(180deg, var(--accent), rgba(212, 175, 55, 0.4));
+}
+
+/* Card untuk doa / ucapan */
+.cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 1.2rem;
+}
+
+.card {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.09), rgba(255, 255, 255, 0.03));
+  border-radius: 16px;
+  padding: 1.2rem;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(10px);
+  text-align: left;
+}
+
+.card h3 {
+  font-size: 1rem;
+  margin-bottom: 0.5rem;
+  color: #f4f4f8;
+}
+
+.card p {
+  font-size: 0.9rem;
+  color: #ccc;
+  margin-bottom: 0.7rem;
+  line-height: 1.5;
+}
+
+.card small {
+  font-size: 0.75rem;
+  color: #888;
+}
+
+/* Footer */
+.footer {
+  padding: 1.5rem 1rem 2rem;
+  text-align: center;
+  font-size: 0.8rem;
+  color: #777;
+}
+
+.footer span {
+  color: #999;
+}
+
+/* Responsif */
+@media (max-width: 600px) {
+  .moon-wrapper {
+    width: 120px;
+    height: 120px;
+  }
+  .moon {
+    width: 120px;
+    height: 120px;
+  }
+  .moon::after {
+    top: 10px;
+    right: -12px;
+    width: 100px;
+    height: 100px;
+  }
+  .actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .btn {
+    justify-content: center;
+  }
+}
+
+/* ===== Efek Kembang Api ===== */
+.fireworks-container {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 10;
+  overflow: hidden;
+}
+
+.firework {
+  position: absolute;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  animation: fireworkExplode 1.5s ease-out forwards;
+}
+
+@keyframes fireworkExplode {
+  0% {
+    opacity: 1;
+    transform: translate(0, 0) scale(1);
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: translate(var(--tx), var(--ty)) scale(0);
+  }
+}
+
+/* Percikan Kembang Api */
+.firework-particle {
+  position: absolute;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  animation: sparkle 0.8s ease-out forwards;
+}
+
+@keyframes sparkle {
+  0% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(0);
+  }
+}
+
+/* Trail/Roket Kembang Api */
+.firework-rocket {
+  position: absolute;
+  width: 3px;
+  height: 15px;
+  border-radius: 3px;
+  animation: rocketFly 0.8s ease-out forwards;
+}
+
+@keyframes rocketFly {
+  0% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(var(--rocket-height));
+  }
+}
+
+/* Efat Bintang Tambahan */
+.star-layer {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.twinkling-star {
+  position: absolute;
+  border-radius: 50%;
+  animation: twinkleStar var(--duration) ease-in-out infinite;
+  animation-delay: var(--delay);
+}
+
+@keyframes twinkleStar {
+  0%, 100% {
+    opacity: 0.2;
+    transform: scale(0.8);
+    box-shadow: 0 0 5px currentColor;
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.2);
+    box-shadow: 0 0 15px currentColor, 0 0 25px currentColor;
+  }
+}
+
+/* Bintang Berbentuk Bintang (5 sudut) */
+.star-shape {
+  position: absolute;
+  animation: twinkleStar var(--duration) ease-in-out infinite;
+  animation-delay: var(--delay);
+}
+
+.star-shape::before {
+  content: "★";
+  font-size: var(--star-size);
+  color: var(--star-color);
+  text-shadow: 0 0 10px var(--star-color), 0 0 20px var(--star-color);
+}
+
+/* Efet Glow untuk Kembang Api */
+.glow-burst {
+  position: absolute;
+  border-radius: 50%;
+  animation: glowExpand 0.6s ease-out forwards;
+}
+
+@keyframes glowExpand {
+  0% {
+    opacity: 0.8;
+    transform: scale(0);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(1);
+  }
+}
