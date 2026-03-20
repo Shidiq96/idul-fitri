@@ -160,7 +160,7 @@ function createToggleButton() {
   const btn = document.createElement('button');
   btn.id = 'effectsToggle';
   btn.className = 'effects-toggle active';
-  btn.innerHTML = '✨ Efek ON';
+  btn.innerHTML = '✨ON';
   btn.setAttribute('aria-label', 'Toggle efek animasi');
   
   btn.addEventListener('click', function(e) {
@@ -170,11 +170,11 @@ function createToggleButton() {
     effectsEnabled = !effectsEnabled;
     
     if (effectsEnabled) {
-      this.innerHTML = '✨ Efek ON';
+      this.innerHTML = '✨ON';
       this.classList.add('active');
       startEffects();
     } else {
-      this.innerHTML = '✨ Efek OFF';
+      this.innerHTML = '✨OFF';
       this.classList.remove('active');
       stopEffects();
     }
