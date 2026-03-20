@@ -235,7 +235,7 @@ function setupShareButton() {
     
     const shareData = {
       title: 'Selamat Hari Raya Idul Fitri',
-      text: 'Selamat Hari Raya Idul Fitri 1447 H. Minal aidzin wal faidzin, mohon maaf lahir dan batin.',
+      text: 'Selamat Hari Raya Idul Fitri 1447 H. Minal aidzin wal faidzin, mohon maaf lahir dan batin🙏.',
       url: window.location.href
     };
     
