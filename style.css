@@ -4,6 +4,7 @@
   --accent: #d4af37;
   --accent-soft: rgba(212, 175, 55, 0.4);
   --pink-accent: #f8b4c4;
+  --blue-accent: #a8d4e6;
 }
 
 * {
@@ -31,7 +32,9 @@ body::before {
   z-index: 0;
 }
 
-/* Konten utama */
+/* ============================================
+   KONTEN UTAMA
+   ============================================ */
 .page {
   position: relative;
   z-index: 1;
@@ -45,7 +48,9 @@ body::before {
   text-align: center;
 }
 
-/* ===== Bulan sabit & bintang (sederhana) ===== */
+/* ============================================
+   BULAN SABIT & BINTANG
+   ============================================ */
 .moon-wrapper {
   position: relative;
   width: 80px;
@@ -61,6 +66,16 @@ body::before {
   box-shadow: 0 0 30px rgba(212, 175, 55, 0.6);
   position: relative;
   overflow: hidden;
+  animation: moonGlow 3s ease-in-out infinite alternate;
+}
+
+@keyframes moonGlow {
+  0% {
+    box-shadow: 0 0 30px rgba(212, 175, 55, 0.6);
+  }
+  100% {
+    box-shadow: 0 0 50px rgba(212, 175, 55, 0.8);
+  }
 }
 
 .moon::after {
@@ -83,9 +98,23 @@ body::before {
   background: var(--accent);
   clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
   opacity: 0.9;
+  animation: starTwinkle 2s ease-in-out infinite;
 }
 
-/* ===== Judul ===== */
+@keyframes starTwinkle {
+  0%, 100% {
+    opacity: 0.6;
+    transform: scale(0.9);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.1);
+  }
+}
+
+/* ============================================
+   JUDUL
+   ============================================ */
 .title {
   font-size: clamp(1.8rem, 5vw, 2.5rem);
   font-weight: 800;
@@ -93,6 +122,18 @@ body::before {
   margin-bottom: 0.8rem;
   color: #fff;
   text-shadow: 0 0 15px rgba(212, 175, 55, 0.5);
+  animation: fadeInDown 1s ease-out;
+}
+
+@keyframes fadeInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .title span {
@@ -106,6 +147,12 @@ body::before {
   margin-bottom: 1.5rem;
   color: #e8e8f0;
   max-width: 500px;
+  animation: fadeIn 1s ease-out 0.3s both;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
 }
 
 /* Ucapan utama */
@@ -114,13 +161,16 @@ body::before {
   font-weight: 600;
   margin-bottom: 1.5rem;
   line-height: 1.5;
+  animation: fadeIn 1s ease-out 0.5s both;
 }
 
 .greeting strong {
   color: var(--accent);
 }
 
-/* ===== Info Box dengan Gambar ===== */
+/* ============================================
+   INFO BOX DENGAN GAMBAR
+   ============================================ */
 .info-box {
   background: rgba(255, 255, 255, 0.05);
   border-radius: 16px;
@@ -129,6 +179,13 @@ body::before {
   max-width: 500px;
   margin: 0 auto 1.5rem;
   text-align: center;
+  animation: fadeIn 1s ease-out 0.7s both;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.info-box:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
 }
 
 .info-box h2 {
@@ -144,6 +201,12 @@ body::before {
   margin: 0 auto 1rem;
   border-radius: 12px;
   overflow: hidden;
+  box-shadow: 0 5px 20px rgba(248, 180, 196, 0.2);
+  transition: transform 0.3s ease;
+}
+
+.info-box:hover .info-box-image {
+  transform: scale(1.02);
 }
 
 .info-box-image img {
@@ -158,13 +221,16 @@ body::before {
   line-height: 1.5;
 }
 
-/* Tombol aksi */
+/* ============================================
+   TOMBOL AKSI
+   ============================================ */
 .actions {
   display: flex;
   flex-wrap: wrap;
   gap: 0.8rem;
   justify-content: center;
   margin-bottom: 1.5rem;
+  animation: fadeIn 1s ease-out 0.9s both;
 }
 
 .btn {
@@ -174,20 +240,26 @@ body::before {
   font-size: 0.9rem;
   font-weight: 600;
   cursor: pointer;
-  transition: background 0.2s ease;
+  transition: all 0.25s ease;
   text-decoration: none;
   display: inline-flex;
   align-items: center;
   gap: 0.4rem;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
 }
 
 .btn-primary {
   background: linear-gradient(135deg, #d4af37, #c89b3b);
   color: #0b1020;
+  box-shadow: 0 4px 15px rgba(212, 175, 55, 0.4);
 }
 
-.btn-primary:hover {
+.btn-primary:hover,
+.btn-primary:active {
   background: linear-gradient(135deg, #e6c454, #d4af37);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(212, 175, 55, 0.5);
 }
 
 .btn-secondary {
@@ -196,8 +268,10 @@ body::before {
   border: 1px solid rgba(255, 255, 255, 0.2);
 }
 
-.btn-secondary:hover {
+.btn-secondary:hover,
+.btn-secondary:active {
   background: rgba(255, 255, 255, 0.15);
+  border-color: rgba(255, 255, 255, 0.3);
 }
 
 /* Meta info */
@@ -205,6 +279,7 @@ body::before {
   font-size: 0.8rem;
   color: #aaa;
   margin-top: 0.8rem;
+  animation: fadeIn 1s ease-out 1.1s both;
 }
 
 .meta span {
@@ -212,20 +287,24 @@ body::before {
   font-weight: 600;
 }
 
-/* ===== Partikel Bintang (Ringan) ===== */
+/* ============================================
+   PARTIKEL BINTANG
+   ============================================ */
 .particles {
   position: fixed;
   inset: 0;
   pointer-events: none;
   z-index: 0;
+  display: block !important;
+  visibility: visible !important;
 }
 
 .particle {
   position: absolute;
-  background: #fff;
   border-radius: 50%;
   opacity: 0;
   animation: floatUp 12s linear infinite;
+  will-change: transform, opacity;
 }
 
 @keyframes floatUp {
@@ -234,10 +313,10 @@ body::before {
     transform: translateY(0);
   }
   10% {
-    opacity: 0.5;
+    opacity: 0.7;
   }
   90% {
-    opacity: 0.3;
+    opacity: 0.4;
   }
   100% {
     opacity: 0;
@@ -245,27 +324,35 @@ body::before {
   }
 }
 
-/* ===== Kembang Api (Ringan) ===== */
+/* ============================================
+   KEMBANG API
+   ============================================ */
 .fireworks-container {
   position: fixed;
   inset: 0;
   pointer-events: none;
   z-index: 10;
   overflow: hidden;
+  display: block !important;
+  visibility: visible !important;
 }
 
 .firework {
   position: absolute;
-  width: 5px;
-  height: 5px;
+  width: 6px;
+  height: 6px;
   border-radius: 50%;
-  animation: fireworkExplode 1.2s ease-out forwards;
+  animation: fireworkExplode 1.2s ease-out forwards !important;
+  will-change: transform, opacity;
 }
 
 @keyframes fireworkExplode {
   0% {
     opacity: 1;
-    transform: translate(0, 0) scale(1);
+    transform: translate(0, 0) scale(1.2);
+  }
+  50% {
+    opacity: 0.8;
   }
   100% {
     opacity: 0;
@@ -273,24 +360,43 @@ body::before {
   }
 }
 
-/* Bintang statis sederhana */
+/* Glow effect untuk kembang api */
+@keyframes glowPulse {
+  0% {
+    opacity: 1;
+    transform: scale(0.5);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(1.5);
+  }
+}
+
+/* ============================================
+   BINTANG STATIS
+   ============================================ */
 .static-stars {
   position: fixed;
   inset: 0;
   pointer-events: none;
   z-index: 0;
+  display: block !important;
+  visibility: visible !important;
 }
 
 .static-star {
   position: absolute;
-  width: 2px;
-  height: 2px;
+  width: 3px;
+  height: 3px;
   background: #fff;
   border-radius: 50%;
   opacity: 0.4;
+  box-shadow: 0 0 4px rgba(255, 255, 255, 0.5);
 }
 
-/* ===== Section ===== */
+/* ============================================
+   SECTION
+   ============================================ */
 .section {
   width: 100%;
   max-width: 900px;
@@ -314,10 +420,12 @@ body::before {
   width: 3px;
   height: 70%;
   border-radius: 999px;
-  background: var(--accent);
+  background: linear-gradient(180deg, var(--accent), rgba(212, 175, 55, 0.3));
 }
 
-/* Cards */
+/* ============================================
+   CARDS
+   ============================================ */
 .cards {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -330,6 +438,12 @@ body::before {
   padding: 1rem;
   border: 1px solid rgba(255, 255, 255, 0.08);
   text-align: left;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
 }
 
 .card h3 {
@@ -350,7 +464,9 @@ body::before {
   color: #888;
 }
 
-/* Footer */
+/* ============================================
+   FOOTER
+   ============================================ */
 .footer {
   padding: 1rem;
   text-align: center;
@@ -358,43 +474,92 @@ body::before {
   color: #777;
 }
 
-/* ===== Toggle Efek ===== */
+/* ============================================
+   TOGGLE EFEK BUTTON
+   ============================================ */
 .effects-toggle {
   position: fixed;
   bottom: 20px;
   right: 20px;
-  z-index: 100;
-  background: rgba(0, 0, 0, 0.7);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  border-radius: 12px;
-  padding: 0.5rem 1rem;
+  z-index: 9999;
+  background: rgba(0, 0, 0, 0.8);
+  border: 2px solid rgba(212, 175, 55, 0.5);
+  border-radius: 25px;
+  padding: 12px 20px;
   color: #fff;
-  font-size: 0.75rem;
+  font-size: 14px;
+  font-weight: 600;
   cursor: pointer;
+  touch-action: manipulation;
+  -webkit-user-select: none;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
   transition: all 0.2s ease;
 }
 
-.effects-toggle:hover {
-  background: rgba(0, 0, 0, 0.9);
+.effects-toggle:active {
+  transform: scale(0.95);
 }
 
 .effects-toggle.active {
-  background: rgba(212, 175, 55, 0.3);
+  background: linear-gradient(135deg, rgba(212, 175, 55, 0.3), rgba(212, 175, 55, 0.1));
   border-color: var(--accent);
 }
 
-/* ===== Mode Hemat Baterai ===== */
+/* ============================================
+   MODE HEMAT BATERAI
+   ============================================ */
 body.reduce-motion .particle,
 body.reduce-motion .firework,
 body.reduce-motion .static-star {
-  display: none;
+  display: none !important;
 }
 
 body.reduce-motion .moon {
+  animation: none;
   box-shadow: 0 0 15px rgba(212, 175, 55, 0.4);
 }
 
-/* ===== Responsive ===== */
+body.reduce-motion .star {
+  animation: none;
+}
+
+body.reduce-motion .title,
+body.reduce-motion .subtitle,
+body.reduce-motion .greeting,
+body.reduce-motion .info-box,
+body.reduce-motion .actions,
+body.reduce-motion .meta {
+  animation: none;
+  opacity: 1;
+}
+
+/* ============================================
+   RESPONSIVE
+   ============================================ */
+@media (max-width: 768px) {
+  .effects-toggle {
+    bottom: 15px;
+    right: 15px;
+    padding: 10px 16px;
+    font-size: 13px;
+  }
+  
+  .firework {
+    width: 5px;
+    height: 5px;
+  }
+  
+  .static-star {
+    width: 2px;
+    height: 2px;
+  }
+}
+
 @media (max-width: 600px) {
   .moon-wrapper {
     width: 60px;
@@ -413,6 +578,11 @@ body.reduce-motion .moon {
     height: 50px;
   }
   
+  .star {
+    width: 8px;
+    height: 8px;
+  }
+  
   .info-box-image {
     max-width: 160px;
   }
@@ -424,7 +594,167 @@ body.reduce-motion .moon {
   .effects-toggle {
     bottom: 10px;
     right: 10px;
-    padding: 0.4rem 0.8rem;
-    font-size: 0.7rem;
+    padding: 8px 14px;
+    font-size: 12px;
+    border-radius: 20px;
+  }
+  
+  .title {
+    font-size: 1.6rem;
+  }
+  
+  .subtitle {
+    font-size: 0.85rem;
+  }
+  
+  .greeting {
+    font-size: 0.95rem;
+  }
+  
+  .info-box {
+    padding: 1rem;
+  }
+  
+  .info-box h2 {
+    font-size: 1rem;
+  }
+  
+  .info-box p {
+    font-size: 0.85rem;
+  }
+  
+  .btn {
+    padding: 0.6rem 1.2rem;
+    font-size: 0.85rem;
+  }
+  
+  .section {
+    padding: 0 0.8rem;
+  }
+  
+  .section-title {
+    font-size: 1.1rem;
+  }
+  
+  .card {
+    padding: 0.9rem;
+  }
+  
+  .card h3 {
+    font-size: 0.9rem;
+  }
+  
+  .card p {
+    font-size: 0.8rem;
+  }
+}
+
+@media (max-width: 380px) {
+  .moon-wrapper {
+    width: 50px;
+    height: 50px;
+  }
+  
+  .moon {
+    width: 50px;
+    height: 50px;
+  }
+  
+  .moon::after {
+    top: 5px;
+    right: -8px;
+    width: 42px;
+    height: 42px;
+  }
+  
+  .star {
+    width: 6px;
+    height: 6px;
+  }
+  
+  .title {
+    font-size: 1.4rem;
+  }
+  
+  .effects-toggle {
+    padding: 6px 12px;
+    font-size: 11px;
+  }
+}
+
+/* ============================================
+   UTILITY CLASSES
+   ============================================ */
+.text-center {
+  text-align: center;
+}
+
+.mt-1 { margin-top: 0.5rem; }
+.mt-2 { margin-top: 1rem; }
+.mb-1 { margin-bottom: 0.5rem; }
+.mb-2 { margin-bottom: 1rem; }
+
+/* ============================================
+   SCROLLBAR CUSTOM (Desktop only)
+   ============================================ */
+@media (min-width: 769px) {
+  ::-webkit-scrollbar {
+    width: 8px;
+  }
+  
+  ::-webkit-scrollbar-track {
+    background: var(--bg-color);
+  }
+  
+  ::-webkit-scrollbar-thumb {
+    background: var(--accent-soft);
+    border-radius: 4px;
+  }
+  
+  ::-webkit-scrollbar-thumb:hover {
+    background: var(--accent);
+  }
+}
+
+/* ============================================
+   SELECTION COLOR
+   ============================================ */
+::selection {
+  background: var(--accent);
+  color: var(--bg-color);
+}
+
+::-moz-selection {
+  background: var(--accent);
+  color: var(--bg-color);
+}
+
+/* ============================================
+   FOCUS STATES (Accessibility)
+   ============================================ */
+.btn:focus-visible,
+.effects-toggle:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+/* ============================================
+   PRINT STYLES
+   ============================================ */
+@media print {
+  .particles,
+  .fireworks-container,
+  .static-stars,
+  .effects-toggle {
+    display: none !important;
+  }
+  
+  body {
+    background: #fff;
+    color: #000;
+  }
+  
+  .moon-wrapper {
+    display: none;
   }
 }
