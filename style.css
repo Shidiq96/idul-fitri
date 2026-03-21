@@ -758,3 +758,523 @@ body.reduce-motion .meta {
     display: none;
   }
 }
+
+/* ============================================
+   GELEMBUNG HARAPAN (Horizontal)
+   ============================================ */
+.wishes-container {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 5;
+  overflow: hidden;
+}
+
+.wish-bubble {
+  position: absolute;
+  max-width: 220px;
+  min-width: 120px;
+  padding: 14px 18px;
+  border-radius: 20px;
+  background: linear-gradient(135deg, rgba(212, 175, 55, 0.2), rgba(248, 180, 196, 0.15));
+  border: 1px solid rgba(212, 175, 55, 0.4);
+  backdrop-filter: blur(10px);
+  color: #fff;
+  font-size: 0.85rem;
+  line-height: 1.5;
+  word-wrap: break-word;
+  animation: slideBubbleLeft var(--slide-duration, 15s) linear forwards;
+  box-shadow: 
+    0 5px 25px rgba(0, 0, 0, 0.4),
+    0 0 40px rgba(212, 175, 55, 0.15),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  opacity: 0;
+  pointer-events: none;
+  right: 0; /* Mulai dari kanan */
+}
+
+/* Ikon kutipan dekoratif */
+.wish-bubble::before {
+  content: '❝';
+  position: absolute;
+  top: -8px;
+  left: 12px;
+  font-size: 1.4rem;
+  color: var(--accent);
+  opacity: 0.8;
+}
+
+.wish-bubble::after {
+  content: '';
+  position: absolute;
+  bottom: -8px;
+  right: 15px;
+  width: 0;
+  height: 0;
+  border-left: 10px solid transparent;
+  border-right: 10px solid transparent;
+  border-top: 10px solid rgba(212, 175, 55, 0.4);
+}
+
+/* Animasi geser dari kanan ke kiri */
+@keyframes slideBubbleLeft {
+  0% {
+    opacity: 0;
+    transform: translateX(100%); /* Mulai di luar layar kanan */
+  }
+  5% {
+    opacity: 1;
+    transform: translateX(90%);
+  }
+  90% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: translateX(calc(-100vw - 100%)); /* Lewati sepenuhnya ke kiri */
+  }
+}
+
+/* Variasi warna gelembung */
+.wish-bubble.variant-1 {
+  background: linear-gradient(135deg, rgba(255, 107, 107, 0.2), rgba(255, 182, 193, 0.15));
+  border-color: rgba(255, 107, 107, 0.4);
+  box-shadow: 
+    0 5px 25px rgba(0, 0, 0, 0.4),
+    0 0 40px rgba(255, 107, 107, 0.15);
+}
+.wish-bubble.variant-1::after {
+  border-top-color: rgba(255, 107, 107, 0.4);
+}
+
+.wish-bubble.variant-2 {
+  background: linear-gradient(135deg, rgba(107, 203, 119, 0.2), rgba(168, 212, 230, 0.15));
+  border-color: rgba(107, 203, 119, 0.4);
+  box-shadow: 
+    0 5px 25px rgba(0, 0, 0, 0.4),
+    0 0 40px rgba(107, 203, 119, 0.15);
+}
+.wish-bubble.variant-2::after {
+  border-top-color: rgba(107, 203, 119, 0.4);
+}
+
+.wish-bubble.variant-3 {
+  background: linear-gradient(135deg, rgba(77, 150, 255, 0.2), rgba(147, 197, 253, 0.15));
+  border-color: rgba(77, 150, 255, 0.4);
+  box-shadow: 
+    0 5px 25px rgba(0, 0, 0, 0.4),
+    0 0 40px rgba(77, 150, 255, 0.15);
+}
+.wish-bubble.variant-3::after {
+  border-top-color: rgba(77, 150, 255, 0.4);
+}
+
+.wish-bubble.variant-4 {
+  background: linear-gradient(135deg, rgba(168, 85, 247, 0.2), rgba(216, 180, 254, 0.15));
+  border-color: rgba(168, 85, 247, 0.4);
+  box-shadow: 
+    0 5px 25px rgba(0, 0, 0, 0.4),
+    0 0 40px rgba(168, 85, 247, 0.15);
+}
+.wish-bubble.variant-4::after {
+  border-top-color: rgba(168, 85, 247, 0.4);
+}
+
+/* Efek hover untuk desktop (opsional, hanya visual) */
+@media (hover: hover) {
+  .wish-bubble {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+}
+
+/* RESPONSIVE untuk gelembung */
+@media (max-width: 600px) {
+  .wish-bubble {
+    max-width: 180px;
+    min-width: 100px;
+    padding: 12px 14px;
+    font-size: 0.8rem;
+  }
+  
+  .wish-bubble::before {
+    font-size: 1.2rem;
+    top: -6px;
+    left: 10px;
+  }
+  
+  .wish-bubble::after {
+    border-left: 8px solid transparent;
+    border-right: 8px solid transparent;
+    border-top: 8px solid rgba(212, 175, 55, 0.4);
+    bottom: -6px;
+    right: 12px;
+  }
+}
+/* ============================================
+   MODAL HARAPAN
+   ============================================ */
+.wish-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 10000;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  background: rgba(0, 0, 0, 0.8);
+  backdrop-filter: blur(5px);
+  animation: fadeIn 0.3s ease;
+}
+
+.wish-modal.active {
+  display: flex;
+}
+
+.wish-modal-content {
+  background: linear-gradient(135deg, #1b2244, #0b1020);
+  border: 1px solid rgba(212, 175, 55, 0.3);
+  border-radius: 20px;
+  padding: 1.5rem;
+  max-width: 400px;
+  width: 100%;
+  animation: slideUp 0.3s ease;
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.wish-modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.wish-modal-header h3 {
+  color: var(--accent);
+  font-size: 1.2rem;
+}
+
+.wish-modal-close {
+  background: none;
+  border: none;
+  color: #888;
+  font-size: 1.5rem;
+  cursor: pointer;
+  padding: 0;
+  line-height: 1;
+  transition: color 0.2s;
+}
+
+.wish-modal-close:hover {
+  color: #fff;
+}
+
+.wish-textarea {
+  width: 100%;
+  min-height: 120px;
+  padding: 1rem;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.05);
+  color: #fff;
+  font-size: 0.95rem;
+  font-family: inherit;
+  resize: vertical;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.wish-textarea:focus {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.1);
+}
+
+.wish-textarea::placeholder {
+  color: #666;
+}
+
+.wish-modal-footer {
+  display: flex;
+  gap: 0.8rem;
+  margin-top: 1rem;
+  justify-content: flex-end;
+}
+
+.wish-btn {
+  padding: 0.6rem 1.2rem;
+  border-radius: 999px;
+  border: none;
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.wish-btn-cancel {
+  background: rgba(255, 255, 255, 0.08);
+  color: #fff;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.wish-btn-cancel:hover {
+  background: rgba(255, 255, 255, 0.15);
+}
+
+.wish-btn-send {
+  background: linear-gradient(135deg, #d4af37, #c89b3b);
+  color: #0b1020;
+}
+
+.wish-btn-send:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(212, 175, 55, 0.4);
+}
+
+/* Character counter */
+.wish-counter {
+  text-align: right;
+  font-size: 0.75rem;
+  color: #666;
+  margin-top: 0.3rem;
+}
+
+/* ============================================
+   NOTIFICATION
+   ============================================ */
+.wish-notification {
+  position: fixed;
+  bottom: 80px;
+  left: 50%;
+  transform: translateX(-50%) translateY(100px);
+  background: linear-gradient(135deg, rgba(212, 175, 55, 0.9), rgba(200, 155, 59, 0.9));
+  color: #0b1020;
+  padding: 0.8rem 1.5rem;
+  border-radius: 999px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  z-index: 10001;
+  opacity: 0;
+  transition: all 0.3s ease;
+  pointer-events: none;
+}
+
+.wish-notification.show {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+
+/* ============================================
+   RESPONSIVE
+   ============================================ */
+@media (max-width: 600px) {
+  .wish-bubble {
+    max-width: 150px;
+    padding: 10px 12px;
+    font-size: 0.75rem;
+  }
+  
+  .wish-modal-content {
+    padding: 1.2rem;
+  }
+  
+  .wish-modal-header h3 {
+    font-size: 1.1rem;
+  }
+  
+  .wish-textarea {
+    min-height: 100px;
+    font-size: 0.9rem;
+  }
+  
+  .wish-btn {
+    padding: 0.5rem 1rem;
+    font-size: 0.8rem;
+  }
+}
+
+/* ============================================
+   MODAL RIWAYAT & INPUT
+   ============================================ */
+.wish-input-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+}
+
+.wish-name-input {
+  width: 100%;
+  padding: 0.8rem 1rem;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.05);
+  color: #fff;
+  font-size: 0.9rem;
+  font-family: inherit;
+  transition: border-color 0.2s;
+}
+
+.wish-name-input:focus {
+  outline: none;
+  border-color: var(--accent);
+}
+
+.wish-name-input::placeholder {
+  color: #666;
+}
+
+.wish-btn-secondary {
+  background: rgba(255, 255, 255, 0.08);
+  color: #fff;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.wish-btn-secondary:hover {
+  background: rgba(255, 255, 255, 0.15);
+}
+
+/* History Modal */
+.wish-history-content {
+  max-width: 500px;
+  max-height: 80vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.wish-history-actions {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+  flex-wrap: wrap;
+}
+
+.wish-history-stats {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1rem;
+  padding: 0.8rem;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 10px;
+}
+
+.wish-stat-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.wish-stat-number {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--accent);
+}
+
+.wish-stat-label {
+  font-size: 0.75rem;
+  color: #888;
+}
+
+.wish-history-list {
+  flex: 1;
+  overflow-y: auto;
+  max-height: 300px;
+  padding-right: 0.5rem;
+}
+
+.wish-history-item {
+  position: relative;
+  padding: 1rem;
+  margin-bottom: 0.5rem;
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  transition: all 0.2s;
+}
+
+.wish-history-item:hover {
+  background: rgba(255, 255, 255, 0.06);
+  border-color: rgba(212, 175, 55, 0.2);
+}
+
+.wish-history-text {
+  font-size: 0.9rem;
+  color: #fff;
+  line-height: 1.4;
+  margin-bottom: 0.5rem;
+}
+
+.wish-history-meta {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.75rem;
+  color: #888;
+}
+
+.wish-history-author {
+  color: var(--accent);
+}
+
+.wish-delete-btn {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+  background: none;
+  border: none;
+  cursor: pointer;
+  opacity: 0.3;
+  transition: opacity 0.2s;
+  font-size: 0.9rem;
+}
+
+.wish-history-item:hover .wish-delete-btn {
+  opacity: 1;
+}
+
+.wish-empty {
+  text-align: center;
+  padding: 2rem;
+  color: #888;
+}
+
+/* Scrollbar custom untuk history list */
+.wish-history-list::-webkit-scrollbar {
+  width: 6px;
+}
+
+.wish-history-list::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 3px;
+}
+
+.wish-history-list::-webkit-scrollbar-thumb {
+  background: rgba(212, 175, 55, 0.3);
+  border-radius: 3px;
+}
+
+.wish-history-list::-webkit-scrollbar-thumb:hover {
+  background: rgba(212, 175, 55, 0.5);
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+  .wish-history-content {
+    max-height: 90vh;
+  }
+  
+  .wish-history-stats {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  
+  .wish-history-list {
+    max-height: 200px;
+  }
+}
