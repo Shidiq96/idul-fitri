@@ -32,7 +32,16 @@ let activeBubbles = new Set();
 let wishesEnabled = true; // <--- Variabel ini yang tadi kurang
 
 const defaultWishes = [
-  "Selamat Idul Fitri! 🌟"
+  "Semoga sehat selalu 💪",
+  "Minal aidzin wal faidzin 🌙",
+  "Mohon maaf lahir dan batin 🙏",
+  "Semoga rezeki lancar 💰",
+  "Selamat hari raya! 🎉",
+  "Semoga bahagia selalu 😊",
+  "Eid Mubarak! ✨",
+  "Semoga dimudahkan segala urusan 🤲",
+  "Maafkan segala kesalahan 🙇",
+  "Semoga panjang umur 🎂"
 ];
 
 // ============================================
@@ -275,6 +284,7 @@ function createWishModal() {
       </div>
       <div class="wish-counter"><span id="wishCharCount">0</span>/100</div>
       <div class="wish-modal-footer">
+        <button class="wish-btn wish-btn-secondary" onclick="showWishHistory()">📜 Riwayat</button>
         <button class="wish-btn wish-btn-cancel" onclick="closeWishModal()">Batal</button>
         <button class="wish-btn wish-btn-send" onclick="sendWish()">Kirim 🚀</button>
       </div>
